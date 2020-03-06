@@ -17,14 +17,14 @@ export default {
     return {
       loginId: "",
       password: ""
-    };
+    }
   },
   methods: {
     login() {
-      console.log("test");
+      console.log("test")
     }
   }
-};
+}
 </script>
 
 <style>
