@@ -12,42 +12,38 @@
 
 <script>
 export default {
-  name: 'KbnButton',
-
+  name: "Button",
   props: {
     type: {
       type: String,
-      default: 'button'
+      default: "button"
     },
-
     disabled: {
       type: Boolean,
       default: false
     },
-
     buttonstyle: {
       type: String,
-      default: ''
+      default: ""
     },
-
     iconType: {
       type: String,
-      default: ''
+      default: ""
     }
   },
 
   computed: {
     // `type`に応じてクラスを動的に生成する
-    classes () {
-      const cls = this.type === 'text' ? ('-' + this.type) : ''
+    classes() {
+      const cls = this.type === "text" ? "-" + this.type : ""
       return [`kbn-button${cls}`]
     }
   },
 
   methods: {
     // `click`イベントを発行
-    handleClick (ev) {
-      this.$emit('click', ev)
+    handleClick(ev) {
+      this.$emit("click", ev)
     }
   }
 }
@@ -55,7 +51,7 @@ export default {
 
 <style scoped>
 .kbn-button {
-  padding: .6em 1.3em;
+  padding: 0.6em 1.3em;
 }
 .kbn-button-text {
   border: none;

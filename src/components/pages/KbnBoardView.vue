@@ -1,9 +1,6 @@
 <template>
   <div class="board-view">
-    <p
-      v-if="progress"
-      class="progress"
-    >
+    <p v-if="progress" class="progress">
       {{ message }}
     </p>
     <KbnBoardTask :lists="lists" />
@@ -13,18 +10,15 @@
 
 <script>
 import { mapState } from 'vuex'
-import KbnBoardNavigation from '@/components/molecules/KbnBoardNavigation.vue'
 import KbnBoardTask from '@/components/organisms/KbnBoardTask.vue'
 
 export default {
   name: 'KbnBoardView',
-
   components: {
-    KbnBoardNavigation,
     KbnBoardTask
   },
 
-  data () {
+  data() {
     return {
       progress: false,
       message: ''
@@ -35,31 +29,31 @@ export default {
     lists: state => state.board.lists
   }),
 
-  created () {
+  created() {
     this.loadLists()
   },
 
   methods: {
-    setProgress (message) {
+    setProgress(message) {
       this.progress = true
       this.message = message
     },
 
-    resetProgress () {
+    resetProgress() {
       this.progress = false
       this.message = ''
     },
 
-    loadLists () {
+    loadLists() {
       this.setProgress('読み込み中...')
 
-      this.$store.dispatch('fetchLists')
+      this.$store
+        .dispatch('fetchLists')
         .catch(err => Promise.reject(err))
         .then(() => {
           this.resetProgress()
         })
-
-    },
+    }
   }
 }
 </script>

@@ -36,9 +36,13 @@
       </ul>
     </div>
     <div class="form-actions">
-      <KbnButton buttonstyle="primary" :disabled="disableLoginAction" @click="handleClick">
+      <Button
+        buttonstyle="primary"
+        :disabled="disableLoginAction"
+        @click="handleClick"
+      >
         ログイン
-      </KbnButton>
+      </Button>
       <p v-if="progress" class="login-progress">
         ログイン中...
       </p>
@@ -55,36 +59,36 @@
 </template>
 
 <script>
-// KbnButtonをインポート
-import KbnButton from '@/components/atoms/KbnButton.vue'
+// Buttonをインポート
+import Button from "@/components/atoms/Button.vue"
 // メールアドレスのフォーマットをチェックする正規表現
 const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const required = val => !!val.trim()
 
 export default {
-  name: 'KbnLoginForm',
+  name: "KbnLoginForm",
 
   components: {
-    KbnButton,
+    Button
   },
 
   props: {
     onlogin: {
       type: Function,
-      required: true,
+      required: true
     },
     oncreate: {
       type: Function,
-      required: true,
-    },
+      required: true
+    }
   },
 
   data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       progress: false,
-      error: '',
+      error: ""
     }
   },
 
@@ -94,11 +98,11 @@ export default {
       return {
         email: {
           required: required(this.email),
-          format: REGEX_EMAIL.test(this.email),
+          format: REGEX_EMAIL.test(this.email)
         },
         password: {
-          required: required(this.password),
-        },
+          required: required(this.password)
+        }
       }
     },
 
@@ -108,7 +112,9 @@ export default {
       let valid = true
       for (let i = 0; i < fields.length; i++) {
         const field = fields[i]
-        valid = Object.keys(validation[field]).every(key => validation[field][key])
+        valid = Object.keys(validation[field]).every(
+          key => validation[field][key]
+        )
         if (!valid) {
           break
         }
@@ -119,12 +125,12 @@ export default {
     disableLoginAction() {
       // validを使ってログイン処理の可否、progressは後述
       return !this.valid || this.progress
-    },
+    }
   },
 
   methods: {
     resetError() {
-      this.error = ''
+      this.error = ""
     },
 
     handleClick() {
@@ -133,7 +139,7 @@ export default {
       } // 不備があればログイン処理が実行されないようガード
 
       this.progress = true // ログイン処理実行中をあらわす
-      this.error = ''
+      this.error = ""
 
       this.$nextTick(() => {
         this.onlogin({ email: this.email, password: this.password })
@@ -148,7 +154,7 @@ export default {
 
     createClick() {
       this.progress = true // ログイン処理実行中をあらわす
-      this.error = ''
+      this.error = ""
 
       this.$nextTick(() => {
         this.oncreate()
@@ -159,8 +165,8 @@ export default {
             this.progress = false
           })
       })
-    },
-  },
+    }
+  }
 }
 </script>
 

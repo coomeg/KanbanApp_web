@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import KbnEditUserForm from '@/components/molecules/KbnEditUserForm.vue'
+import KbnEditUserForm from "@/components/molecules/KbnEditUserForm.vue"
 
 export default {
-  name: 'KbnCreateView',
+  name: "KbnCreateView",
   props: {
     handleClose: {
       type: Function,
@@ -27,15 +27,18 @@ export default {
   },
 
   methods: {
-    handleEdit (authInfo) {
-      return this.$store.dispatch('editUser', authInfo)
-        .then((res) => {
-          // this.$router.push({ path: '/login' })
+    handleEdit(authInfo) {
+      return this.$store
+        .dispatch("editUser", authInfo)
+        .then(res => {
+          // this.$router.push({ path: "/login" })
         })
         .catch(err => this.throwReject(err))
     },
 
-    throwReject (err) { return Promise.reject(err) }
+    throwReject(err) {
+      return Promise.reject(err)
+    }
   }
 }
 </script>

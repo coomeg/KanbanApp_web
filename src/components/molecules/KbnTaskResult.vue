@@ -4,43 +4,20 @@
     :data="tableData"
     border
     header-row-class-name="header-style"
-    style="width: 100%">
-    <el-table-column
-      prop="no"
-      label="No"
-      width="180">
+    style="width: 100%"
+  >
+    <el-table-column prop="no" label="No" width="180"> </el-table-column>
+    <el-table-column prop="taskName" label="タスク名" width="180">
     </el-table-column>
-    <el-table-column
-      prop="taskName"
-      label="タスク名"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="担当者">
-    </el-table-column>
-    <el-table-column
-      prop="status"
-      label="ステータス">
-    </el-table-column>
-    <el-table-column
-      prop="createDate"
-      label="作成日">
-    </el-table-column>
+    <el-table-column prop="name" label="担当者"> </el-table-column>
+    <el-table-column prop="status" label="ステータス"> </el-table-column>
+    <el-table-column prop="createDate" label="作成日"> </el-table-column>
   </el-table>
 </template>
 
 <script>
-// KbnButtonをインポート
-import KbnButton from '@/components/atoms/KbnButton.vue'
-
 export default {
   name: 'KbnTaskResult',
-
-  components: {
-    KbnButton
-  },
-
   props: {
     loadingFlg: {
       type: Boolean,
@@ -48,7 +25,7 @@ export default {
     },
 
     tableData: Array
-  },
+  }
 }
 </script>
 
@@ -59,7 +36,7 @@ form {
   text-align: left;
 }
 input {
-  padding: .5em;
+  padding: 0.5em;
   font: inherit;
 }
 ul {
@@ -75,7 +52,7 @@ ul li {
 .form-actions p {
   font-size: 0.5em;
 }
-.header-style{
-  background-color: royalblue
+.header-style {
+  background-color: royalblue;
 }
 </style>

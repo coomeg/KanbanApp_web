@@ -1,49 +1,30 @@
 <template>
-  <form
-    class="task-detail-form"
-    novalidate
-  >
+  <form class="task-detail-form" novalidate>
     <div class="form-item">
       <label for="task-name">タスク名</label>
-      <input
-        id="task-name"
-        v-model="task.name"
-        type="text"
-      >
+      <input id="task-name" v-model="task.name" type="text" />
     </div>
     <div class="form-item">
       <label for="task-description">説明</label>
-      <textarea
-        id="task-description"
-        v-model="task.description"
-      />
+      <textarea id="task-description" v-model="task.description" />
     </div>
 
     <div class="form-item">
       <label for="task-userName">担当者</label>
       <KbnUserSelect
         :selectedUserId="task.userId"
-        :changeValue="funcChangeValue" />
+        :changeValue="funcChangeValue"
+      />
     </div>
 
     <div class="form-actions">
-      <KbnButton
-        buttonstyle="primary"
-        :disabled="progress"
-        @click="handleClick"
-      >
+      <Button buttonstyle="primary" :disabled="progress" @click="handleClick">
         更新
-      </KbnButton>
-      <p
-        v-if="progress"
-        class="update-progress"
-      >
+      </Button>
+      <p v-if="progress" class="update-progress">
         更新中...
       </p>
-      <p
-        v-if="error"
-        class="update-error"
-      >
+      <p v-if="error" class="update-error">
         {{ error }}
       </p>
     </div>
@@ -51,22 +32,21 @@
 </template>
 
 <script>
-import KbnButton from '@/components/atoms/KbnButton.vue'
+import Button from '@/components/atoms/Button.vue'
 import KbnUserSelect from '@/components/atoms/KbnUserSelect.vue'
 
 export default {
   name: 'KbnTaskDetailFrom',
 
   components: {
-    KbnButton,
+    Button,
     KbnUserSelect
   },
 
   props: {
     task: {
       type: Object,
-      required: true,
-      default: () => {}
+      required: true
     },
     onupdate: {
       type: Function,
@@ -74,7 +54,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       progress: false,
       error: ''
@@ -82,9 +62,11 @@ export default {
   },
 
   methods: {
-    handleClick (ev) {
+    handleClick(ev) {
       // 更新処理されている最中に実行されないようガード
-      if (this.progress) { return }
+      if (this.progress) {
+        return
+      }
 
       this.progress = true // 更新処理実行中
 
@@ -99,7 +81,7 @@ export default {
       })
     },
 
-    funcChangeValue (value) {
+    funcChangeValue(value) {
       this.task.userId = value
     }
   }
@@ -115,7 +97,8 @@ form {
 label {
   display: block;
 }
-input, textarea {
+input,
+textarea {
   width: 99%;
 }
 .form-actions {

@@ -22,7 +22,8 @@
         type="daterange"
         range-separator="～"
         start-placeholder="例: 2019-01-01"
-        end-placeholder="例: 2019-01-03">
+        end-placeholder="例: 2019-01-03"
+      >
       </el-date-picker>
     </div>
 
@@ -30,10 +31,7 @@
       <div class="lavel-style">
         <label for="keyword">キーワード</label>
       </div>
-      <el-input
-        class="input-style"
-        placeholder="例: タスク"
-        v-model="keyword">
+      <el-input class="input-style" placeholder="例: タスク" v-model="keyword">
       </el-input>
     </div>
 
@@ -43,85 +41,90 @@
       </div>
       <div class="input-item">
         <el-checkbox-group v-model="checkList">
-            <el-checkbox
-              v-for="status in statusList"
-              :key="status.taskListId"
-              :label="status.name">
-            </el-checkbox>
+          <el-checkbox
+            v-for="status in statusList"
+            :key="status.taskListId"
+            :label="status.name"
+          >
+          </el-checkbox>
         </el-checkbox-group>
       </div>
     </div>
 
-     <div class="form-actions">
-      <KbnButton
+    <div class="form-actions">
+      <Button
         @click="handleClick"
         buttonstyle="primary"
-        iconType="el-icon-search">
+        iconType="el-icon-search"
+      >
         <slot name="actionName">検索</slot>
-      </KbnButton>
-      <KbnButton
-        @click="clearClick">
+      </Button>
+      <Button @click="clearClick">
         <slot name="actionName">クリア</slot>
-      </KbnButton>
+      </Button>
     </div>
   </div>
 </template>
 
 <script>
-// KbnButtonをインポート
-import KbnButton from '@/components/atoms/KbnButton.vue'
+// Buttonをインポート
+import Button from "@/components/atoms/Button.vue"
 
 export default {
-  name: 'KbnTaskSearchForm',
+  name: "KbnTaskSearchForm",
 
   components: {
-    KbnButton
+    Button
   },
 
   props: {
     onaction: {
       type: Function,
       required: true
-    },
+    }
   },
 
-  data () {
+  data() {
     return {
-      style: 'primary',
-      name: '',
-      createDate: '',
-      keyword: '',
+      style: "primary",
+      name: "",
+      createDate: "",
+      keyword: "",
       statusList: Array,
       checkList: [],
       pickerOptions: {
-        shortcuts: [{
-          text: 'Last week',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
+        shortcuts: [
+          {
+            text: "Last week",
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit("pick", [start, end])
+            }
+          },
+          {
+            text: "Last month",
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit("pick", [start, end])
+            }
+          },
+          {
+            text: "Last 3 months",
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit("pick", [start, end])
+            }
           }
-        }, {
-          text: 'Last month',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: 'Last 3 months',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
+        ]
       },
       links: [],
-      timeout:  null
+      timeout: null
     }
   },
 
@@ -130,16 +133,16 @@ export default {
   // },
 
   methods: {
-    clearClick () {
-      this.name=''
-      this.createDate=''
-      this.keyword=''
-      this.checkList=[]
+    clearClick() {
+      this.name = ""
+      this.createDate = ""
+      this.keyword = ""
+      this.checkList = []
     },
 
-    handleClick (ev) {
-      let dateFrom = '1900-01-01'
-      let dateTo = '9999-12-31'
+    handleClick(ev) {
+      let dateFrom = "1900-01-01"
+      let dateTo = "9999-12-31"
       let checkVal = Array
 
       if (this.createDate && this.createDate[0]) {
@@ -149,7 +152,7 @@ export default {
         dateTo = this.createDate[1]
       }
       if (this.checkList.length == 0) {
-        checkVal = [1,2,3]
+        checkVal = [1, 2, 3]
       } else {
         checkVal = this.checkList.map(val => {
           const id = this.statusList.find(status => status.name === val)
@@ -158,12 +161,12 @@ export default {
       }
       this.$nextTick(() => {
         this.onaction({
-            sname: this.name,
-            dateFrom: dateFrom,
-            dateTo: dateTo,
-            keyword: this.keyword,
-            taskListIds: checkVal
-          })
+          sname: this.name,
+          dateFrom: dateFrom,
+          dateTo: dateTo,
+          keyword: this.keyword,
+          taskListIds: checkVal
+        })
           .catch(err => {
             this.error = err.message
           })
@@ -174,8 +177,9 @@ export default {
     },
 
     getUserName() {
-      this.$store.dispatch('getUserLike', this.name)
-        .then((res) => {
+      this.$store
+        .dispatch("getUserLike", this.name)
+        .then(res => {
           console.log(res)
           this.links = res
         })
@@ -183,8 +187,9 @@ export default {
     },
 
     getStatusList() {
-      this.$store.dispatch('fetchTaskLists')
-        .then((res) => {
+      this.$store
+        .dispatch("fetchTaskLists")
+        .then(res => {
           console.log(res)
           this.statusList = res
         })
@@ -192,23 +197,25 @@ export default {
     },
 
     querySearchAsync(queryString, cb) {
-      const links = this.links;
-      const results = queryString ? links.filter(this.createFilter(queryString)) : links;
+      const links = this.links
+      const results = queryString
+        ? links.filter(this.createFilter(queryString))
+        : links
 
-      clearTimeout(this.timeout);
+      clearTimeout(this.timeout)
       this.timeout = setTimeout(() => {
-        cb(results);
-      }, 3000 * Math.random());
+        cb(results)
+      }, 3000 * Math.random())
     },
     createFilter(queryString) {
       console.log(queryString)
-      return (key) => {
-        console.log('key:',key)
-        return (key.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-      };
+      return key => {
+        console.log("key:", key)
+        return key.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+      }
     },
     handleSelect(item) {
-      console.log(item);
+      console.log(item)
     }
   },
 
@@ -226,7 +233,7 @@ export default {
   text-align: left;
 }
 input {
-  padding: .5em;
+  padding: 0.5em;
   font: inherit;
 }
 ul {

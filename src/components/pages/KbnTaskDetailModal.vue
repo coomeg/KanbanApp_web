@@ -3,18 +3,12 @@
     <div class="wrapper">
       <div class="container">
         <div class="header">
-          <KbnButton
-            type="text"
-            @click="handleClose"
-          >
-            <KbnIcon name="close"/>
-          </KbnButton>
+          <Button type="text" @click="handleClose">
+            <KbnIcon name="close" />
+          </Button>
         </div>
         <div class="body">
-          <KbnTaskDetailForm
-            :task="task"
-            :onupdate="handleUpdate"
-          />
+          <KbnTaskDetailForm :task="task" :onupdate="handleUpdate" />
         </div>
       </div>
     </div>
@@ -22,15 +16,15 @@
 </template>
 
 <script>
-import KbnButton from '@/components/atoms/KbnButton.vue'
-import KbnIcon from '@/components/atoms/KbnIcon.vue'
-import KbnTaskDetailForm from '@/components/molecules/KbnTaskDetailForm.vue'
+import Button from "@/components/atoms/Button.vue"
+import KbnIcon from "@/components/atoms/KbnIcon.vue"
+import KbnTaskDetailForm from "@/components/molecules/KbnTaskDetailForm.vue"
 
 export default {
-  name: 'KbnTaskDetailModal',
+  name: "KbnTaskDetailModal",
 
   components: {
-    KbnButton,
+    Button,
     KbnIcon,
     KbnTaskDetailForm
   },
@@ -40,25 +34,26 @@ export default {
   },
 
   computed: {
-    task () {
+    task() {
       // const id = parseInt(this.$route.params.id)
       return !Number.isNaN(this.taskId)
-        ? {...this.$store.getters.getTaskById(this.taskId)}
+        ? { ...this.$store.getters.getTaskById(this.taskId) }
         : {}
     }
   },
 
   methods: {
-    back () {
-      this.$router.push({ path: '/' })
+    back() {
+      this.$router.push({ path: "/" })
     },
 
-    handleClose () {
+    handleClose() {
       this.back()
     },
 
-    handleUpdate (task) {
-      return this.$store.dispatch('updateTask', task)
+    handleUpdate(task) {
+      return this.$store
+        .dispatch("updateTask", task)
         .then(() => {
           this.back()
         })
@@ -76,9 +71,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 .wrapper {
   display: table-cell;
@@ -90,8 +85,8 @@ export default {
   padding: 8px;
   background-color: #fff;
   border-radius: 0.5em;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
 }
 .header {
   text-align: right;

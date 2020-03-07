@@ -1,41 +1,25 @@
 <template>
-  <form
-    class="task-form"
-    novalidate
-  >
+  <form class="task-form" novalidate>
     <div class="form-item">
-      <input
-        v-model="name"
-        type="text"
-        placeholder="タスク..."
-      >
+      <input v-model="name" type="text" placeholder="タスク..." />
     </div>
     <div class="form-actions">
-      <KbnButton
+      <Button
         buttonstyle="primary"
         :disabled="disableAddAction"
         @click="handleAdd"
       >
         追加
-      </KbnButton>
-      <KbnButton
-        :disabled="progress"
-        @click="handleCancel"
-      >
+      </Button>
+      <Button :disabled="progress" @click="handleCancel">
         <span style="font-size:10px;">キャンセル</span>
-      </KbnButton>
+      </Button>
     </div>
     <div class="messages">
-      <p
-        v-if="progress"
-        class="add-progress"
-      >
+      <p v-if="progress" class="add-progress">
         追加中...
       </p>
-      <p
-        v-if="error"
-        class="add-error"
-      >
+      <p v-if="error" class="add-error">
         {{ error }}
       </p>
     </div>
@@ -43,13 +27,13 @@
 </template>
 
 <script>
-import KbnButton from '@/components/atoms/KbnButton.vue'
+import Button from "@/components/atoms/Button.vue"
 
 export default {
-  name: 'KbnTaskForm',
+  name: "KbnTaskForm",
 
   components: {
-    KbnButton
+    Button
   },
 
   props: {
@@ -59,16 +43,16 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
-      name: '',
+      name: "",
       progress: false,
-      error: ''
+      error: ""
     }
   },
 
   computed: {
-    disableAddAction () {
+    disableAddAction() {
       return this.name.length === 0 || this.progress
     }
   },
@@ -77,18 +61,19 @@ export default {
     complete(name) {
       this.$message({
         message: `${name}を追加しました`,
-        type: 'success'
-      });
+        type: "success"
+      })
     },
-    handleAdd () {
+    handleAdd() {
       this.progress = true
-      this.error = ''
+      this.error = ""
 
       const { name, listId } = this
-      return this.$store.dispatch('addTask', { name, listId })
-        .then((name) => {
+      return this.$store
+        .dispatch("addTask", { name, listId })
+        .then(name => {
           this.complete(name)
-          this.$emit('close')
+          this.$emit("close")
         })
         .catch(err => {
           this.error = err.message
@@ -98,8 +83,8 @@ export default {
         })
     },
 
-    handleCancel () {
-      this.$emit('close')
+    handleCancel() {
+      this.$emit("close")
     }
   }
 }

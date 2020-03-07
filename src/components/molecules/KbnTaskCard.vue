@@ -12,42 +12,38 @@
       <KbnDialog
         title="タスク詳細"
         :dialogFormVisible="dialogFormVisible"
-        @close="closeDialog">
-        <KbnTaskDetailForm
-          :task="task"
-          :onupdate="handleUpdate" />
+        @close="closeDialog"
+      >
+        <KbnTaskDetailForm :task="task" :onupdate="handleUpdate" />
       </KbnDialog>
     </div>
     <div class="actions">
-      <KbnButton
-        type="text"
-        @click="$emit('remove', { taskId, taskListId })"
-      >
+      <Button type="text" @click="$emit('remove', { taskId, taskListId })">
         <KbnIcon name="remove" />
-      </KbnButton>
+      </Button>
     </div>
   </div>
 </template>
 
 <script>
-import KbnButton from '@/components/atoms/KbnButton.vue'
-import KbnIcon from '@/components/atoms/KbnIcon.vue'
-import KbnDialog from '@/components/organisms/KbnDialog.vue'
-import KbnTaskDetailForm from '@/components/molecules/KbnTaskDetailForm.vue'
+import Button from "@/components/atoms/Button.vue"
+import KbnIcon from "@/components/atoms/KbnIcon.vue"
+import KbnDialog from "@/components/organisms/KbnDialog.vue"
+import KbnTaskDetailForm from "@/components/molecules/KbnTaskDetailForm.vue"
 
 export default {
-  name: 'KbnTaskCard',
+  name: "KbnTaskCard",
 
   components: {
-    KbnButton,
+    Button,
     KbnDialog,
     KbnIcon,
     KbnTaskDetailForm
   },
 
-  data () {
+  data() {
     return {
-      dialogFormVisible: false,
+      dialogFormVisible: false
     }
   },
 
@@ -62,7 +58,7 @@ export default {
     },
     description: {
       type: String,
-      default: ''
+      default: ""
     },
     taskListId: {
       type: Number,
@@ -71,10 +67,10 @@ export default {
   },
 
   computed: {
-    task () {
+    task() {
       // const id = parseInt(this.$route.params.id)
       return !Number.isNaN(this.taskId)
-        ? {...this.$store.getters.getTaskById(this.taskId)}
+        ? { ...this.$store.getters.getTaskById(this.taskId) }
         : {}
     }
   },
@@ -82,28 +78,29 @@ export default {
   methods: {
     complete() {
       this.$message({
-        message: '更新しました',
-        type: 'success'
-      });
+        message: "更新しました",
+        type: "success"
+      })
     },
-    closeDialog () {
+    closeDialog() {
       this.dialogFormVisible = false
     },
 
-    linkClick () {
+    linkClick() {
       this.dialogFormVisible = true
     },
 
-    handleUpdate (task) {
-      console.log('task::::',task)
-      return this.$store.dispatch('updateTask', task)
-        .then(() => {
-          this.closeDialog()
-          this.complete()
-        })
+    handleUpdate(task) {
+      console.log("task::::", task)
+      return this.$store.dispatch("updateTask", task).then(() => {
+        this.closeDialog()
+        this.complete()
+      })
     },
 
-    throwReject (err) { return Promise.reject(err) }
+    throwReject(err) {
+      return Promise.reject(err)
+    }
   }
 }
 </script>

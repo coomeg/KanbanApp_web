@@ -4,25 +4,22 @@
       <h2>{{ name }}</h2>
     </div>
     <div class="actions">
-      <KbnButton
-        type="text"
-        @click="$emit('add')"
-      >
+      <Button type="text" @click="$emit('add')">
         <KbnIcon name="add" />
-      </KbnButton>
+      </Button>
     </div>
   </div>
 </template>
 
 <script>
-import KbnButton from '@/components/atoms/KbnButton.vue'
-import KbnIcon from '@/components/atoms/KbnIcon.vue'
+import Button from "@/components/atoms/Button.vue"
+import KbnIcon from "@/components/atoms/KbnIcon.vue"
 
 export default {
-  name: 'KbnTaskListHeader',
+  name: "KbnTaskListHeader",
 
   components: {
-    KbnButton,
+    Button,
     KbnIcon
   },
 
@@ -46,7 +43,7 @@ export default {
 h2 {
   margin: 0px;
   padding-left: 8px;
-  font-size: 1.0em;
+  font-size: 1em;
   text-align: left;
 }
 .actions {

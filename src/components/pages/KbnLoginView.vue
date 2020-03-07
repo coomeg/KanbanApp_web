@@ -6,34 +6,34 @@
 </template>
 
 <script>
-import KbnLoginForm from '@/components/molecules/KbnLoginForm.vue';
+import KbnLoginForm from "@/components/molecules/KbnLoginForm.vue"
 
 export default {
-  name: 'KbnLoginView',
+  name: "KbnLoginView",
 
   components: {
-    KbnLoginForm,
+    KbnLoginForm
   },
 
   methods: {
     handleLogin(authInfo) {
       return this.$store
-        .dispatch('login', authInfo)
+        .dispatch("login", authInfo)
         .then(() => {
-          this.$router.push({ path: '/' });
+          this.$router.push({ path: "/" })
         })
-        .catch(err => this.throwReject(err));
+        .catch(err => this.throwReject(err))
     },
 
     handlecreate() {
-      console.log('handlecreate');
-      this.$router.push({ path: '/createUser' });
+      console.log("handlecreate")
+      this.$router.push({ path: "/createUser" })
     },
     throwReject(err) {
-      return Promise.reject(err);
-    },
-  },
-};
+      return Promise.reject(err)
+    }
+  }
+}
 </script>
 
 <style scoped>

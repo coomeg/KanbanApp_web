@@ -6,21 +6,21 @@
       :name.sync="name"
       :email.sync="email"
       :back="backAction"
-      />
+    />
   </div>
 </template>
 
 <script>
-import KbnEditUserForm from '@/components/molecules/KbnEditUserForm.vue'
+import KbnEditUserForm from "@/components/molecules/KbnEditUserForm.vue"
 
 export default {
-  name: 'KbnCreateUserView',
+  name: "KbnCreateUserView",
 
-  data () {
+  data() {
     return {
-      name: '',
-      email: '',
-      password:''
+      name: "",
+      email: "",
+      password: ""
     }
   },
 
@@ -29,19 +29,22 @@ export default {
   },
 
   methods: {
-    handleCreate (authInfo) {
-      return this.$store.dispatch('createUser', authInfo)
+    handleCreate(authInfo) {
+      return this.$store
+        .dispatch("createUser", authInfo)
         .then(() => {
-          this.$router.push({ path: '/login' })
+          this.$router.push({ path: "/login" })
         })
         .catch(err => this.throwReject(err))
     },
 
-    backAction () {
-      this.$router.push({ path: '/login' })
+    backAction() {
+      this.$router.push({ path: "/login" })
     },
 
-    throwReject (err) { return Promise.reject(err) }
+    throwReject(err) {
+      return Promise.reject(err)
+    }
   }
 }
 </script>

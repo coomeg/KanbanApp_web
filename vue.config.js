@@ -2,23 +2,25 @@ module.exports = {
   configureWebpack: {
     devServer: {
       proxy: {
-        '/api': {
+        '/api/*': {
           target: 'http://server:2941',
-          pathRewrite: p => p + '&KEY=HOGE',
-        },
-      },
-    },
+          pathRewrite: { '^/api': '' },
+          secure: false,
+          changeOrigin: true
+        }
+      }
+    }
   },
   pages: {
     index: {
       entry: 'src/main.ts',
       template: 'public/index.html',
-      filename: 'app/index.html',
+      filename: 'index.html'
     },
     login: {
       entry: 'src/login.ts',
       template: 'public/index.html',
-      filename: 'login.html',
-    },
-  },
-};
+      filename: 'login.html'
+    }
+  }
+}

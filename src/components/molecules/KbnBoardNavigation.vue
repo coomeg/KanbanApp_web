@@ -12,23 +12,21 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import KbnBoardMenu from '@/components/molecules/KbnBoardMenu.vue'
-import KbnEditUserView from '@/components/templates/KbnEditUserView.vue'
+import { mapState } from "vuex"
+import KbnBoardMenu from "@/components/molecules/KbnBoardMenu.vue"
 
 export default {
-  name: 'KbnBoardNavigation',
+  name: "KbnBoardNavigation",
 
-  data () {
+  data() {
     return {
       progress: false,
-      message: ''
+      message: ""
     }
   },
 
   components: {
-    KbnBoardMenu,
-    KbnEditUserView
+    KbnBoardMenu
   },
 
   computed: mapState({
@@ -38,15 +36,15 @@ export default {
 </script>
 
 <style scoped>
-  .el-header {
-    text-align: right;
-    font-size: 12px;
-    background-color: #B3C0D1;
-    color: #333;
-    line-height: 60px;
-  }
+.el-header {
+  text-align: right;
+  font-size: 12px;
+  background-color: #b3c0d1;
+  color: #333;
+  line-height: 60px;
+}
 
-  .el-container{
-    width: 100%;
-  }
+.el-container {
+  width: 100%;
+}
 </style>

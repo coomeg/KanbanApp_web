@@ -1,29 +1,28 @@
 <template>
   <el-container class="home">
-    <!-- <KbnSideMenu />
-    -->
+    <KbnSideMenu />
     <KbnBoardNavigation />
   </el-container>
 </template>
 
 <script>
-import KbnSideMenu from '@/components/molecules/KbnSideMenu.vue'
-import KbnBoardNavigation from '@/components/molecules/KbnBoardNavigation.vue'
+import KbnBoardNavigation from "@/components/molecules/KbnBoardNavigation.vue"
+import KbnSideMenu from "@/components/molecules/KbnSideMenu.vue"
 
 export default {
-  name: 'KbnHomeView',
+  name: "KbnHomeView",
 
   components: {
-    KbnSideMenu,
-    KbnBoardNavigation
+    KbnBoardNavigation,
+    KbnSideMenu
   },
 
   data() {
     const item = {
-      date: '2016-05-02',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles'
-    };
+      date: "2016-05-02",
+      name: "Tom",
+      address: "No. 189, Grove St, Los Angeles"
+    }
     return {
       tableData: Array(20).fill(item)
     }
@@ -32,9 +31,9 @@ export default {
 </script>
 
 <style scoped>
-  .home {
-    border: 1px solid #eee;
-    height: 100%;
-    width: 100%;
-  }
+.home {
+  border: 1px solid #eee;
+  height: 100%;
+  width: 100%;
+}
 </style>

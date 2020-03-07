@@ -11,7 +11,8 @@
           type="text"
           autocomplete="off"
           placeholder="例: 山田 太郎"
-          @focus="resetError">
+          @focus="resetError"
+        />
         <ul class="validation-errors">
           <li v-if="!validation.name.required">名前が入力されていません。</li>
         </ul>
@@ -28,10 +29,15 @@
           type="text"
           autocomplete="off"
           placeholder="例: kanban@domain.com"
-          @focus="resetError">
+          @focus="resetError"
+        />
         <ul class="validation-errors">
-          <li v-if="!validation.email.format">メールアドレスの形式が不正です。</li>
-          <li v-if="!validation.email.required">メールアドレスが入力されていません。</li>
+          <li v-if="!validation.email.format">
+            メールアドレスの形式が不正です。
+          </li>
+          <li v-if="!validation.email.required">
+            メールアドレスが入力されていません。
+          </li>
         </ul>
       </div>
     </div>
@@ -46,53 +52,48 @@
           type="password"
           autocomplete="off"
           placeholder="例: xxxxxxxx"
-          @focus="resetError">
+          @focus="resetError"
+        />
         <ul class="validation-errors">
-          <li v-if="!validation.password.required">パスワードが入力されていません。</li>
+          <li v-if="!validation.password.required">
+            パスワードが入力されていません。
+          </li>
         </ul>
       </div>
     </div>
     <div class="form-actions">
-      <KbnButton
+      <Button
         buttonstyle="primary"
         :disabled="disableCreateAction"
         @click="handleClick"
       >
         <slot name="actionName">新規登録</slot>
-      </KbnButton>
-      <p
-        v-if="progress"
-        class="login-progress"
-      >
+      </Button>
+      <p v-if="progress" class="login-progress">
         <slot name="actionProgress">登録中...</slot>
       </p>
-      <p
-        v-if="error"
-        class="login-error"
-      >
+      <p v-if="error" class="login-error">
         {{ error }}
       </p>
-      <KbnButton
-        @click="back"
-      >
+      <Button @click="back">
         戻る
-      </KbnButton>
+      </Button>
     </div>
   </form>
 </template>
 
 <script>
-// KbnButtonをインポート
-import KbnButton from '@/components/atoms/KbnButton.vue'
+// Buttonをインポート
+import Button from "@/components/atoms/Button.vue"
 // メールアドレスのフォーマットをチェックする正規表現
 const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const required = val => !!val.trim()
 
 export default {
-  name: 'KbnEditUserForm',
+  name: "KbnEditUserForm",
 
   components: {
-    KbnButton
+    Button
   },
 
   props: {
@@ -115,36 +116,37 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
-      password: '',
+      password: "",
       progress: false,
-      error: ''
+      error: ""
     }
   },
 
   computed: {
     userName: {
-      get () {
+      get() {
         return this.name
       },
 
-      set (value) {
-        this.$emit('update:name', value)
+      set(value) {
+        this.$emit("update:name", value)
       }
     },
 
     userEmail: {
-      get () {
+      get() {
         return this.email
       },
 
-      set (value) {
-        this.$emit('update:email', value)
+      set(value) {
+        this.$emit("update:email", value)
       }
     },
 
-    validation () { // nameとemailとpasswordのバリデーション
+    validation() {
+      // nameとemailとpasswordのバリデーション
       return {
         name: {
           required: required(this.userName)
@@ -159,35 +161,44 @@ export default {
       }
     },
 
-    valid () {
+    valid() {
       const validation = this.validation // 先に定義したvalidationを用いて可否を返す
       const fields = Object.keys(validation)
       let valid = true
       for (let i = 0; i < fields.length; i++) {
         const field = fields[i]
-        valid = Object.keys(validation[field])
-          .every(key => validation[field][key])
-        if (!valid) { break }
+        valid = Object.keys(validation[field]).every(
+          key => validation[field][key]
+        )
+        if (!valid) {
+          break
+        }
       }
       return valid
     },
 
-    disableCreateAction () { // validを使って登録処理の可否、progressは後述
+    disableCreateAction() {
+      // validを使って登録処理の可否、progressは後述
       return !this.valid || this.progress
     }
   },
 
   methods: {
-    resetError () {
-      this.error = ''
+    resetError() {
+      this.error = ""
     },
 
-    handleClick (ev) {
+    handleClick(ev) {
       this.progress = true // 登録処理実行中をあらわす
-      this.error = ''
+      this.error = ""
 
       this.$nextTick(() => {
-        this.onaction({ userId: this.$store.state.auth.userId, name: this.userName, email: this.userEmail, password: this.password })
+        this.onaction({
+          userId: this.$store.state.auth.userId,
+          name: this.userName,
+          email: this.userEmail,
+          password: this.password
+        })
           .catch(err => {
             this.error = err.message
           })
@@ -207,7 +218,7 @@ form {
   text-align: left;
 }
 input {
-  padding: .5em;
+  padding: 0.5em;
   font: inherit;
   line-height: 0px;
 }
