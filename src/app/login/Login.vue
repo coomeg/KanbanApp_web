@@ -1,25 +1,13 @@
 <template>
   <div id="app">
-    <el-form
-      id="inner"
-      :rules="rules"
-      ref="userForm"
-      :model="userForm"
-      label-width="120px"
-    >
+    <el-form id="inner" :rules="rules" ref="userForm" :model="userForm" label-width="120px">
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span>ログイン</span>
-          <el-button style="float: right; padding: 3px 0" type="text">
-            パスワードを忘れた方
-          </el-button>
+          <el-button style="float: right; padding: 3px 0" type="text">パスワードを忘れた方</el-button>
         </div>
         <el-form-item label="ユーザID" prop="userId">
-          <el-input
-            id="login-input"
-            v-model="userForm.userId"
-            placeholder="Please user id"
-          />
+          <el-input id="login-input" v-model="userForm.userId" placeholder="Please user id" />
         </el-form-item>
         <el-form-item label="パスワード" prop="password">
           <el-input
@@ -30,14 +18,10 @@
           />
         </el-form-item>
         <el-form-item class="button-form">
-          <Button buttonstyle="primary" @click="login()">
-            ログイン
-          </Button>
+          <Button buttonstyle="primary" @click="login()">ログイン</Button>
         </el-form-item>
         <div class="button-form">
-          <el-link type="primary">
-            新規登録はコチラ
-          </el-link>
+          <el-link type="primary">新規登録はコチラ</el-link>
         </div>
       </el-card>
     </el-form>
@@ -45,54 +29,56 @@
 </template>
 
 <script>
-import Button from '@/components/atoms/Button.vue'
-import loginApi from '../../api/LoginApi'
+import Button from "@/components/atoms/Button.vue";
+import loginApi from "../../api/LoginApi";
+import router from "../../router";
 
 export default {
-  name: 'Login',
+  name: "Login",
   components: {
     Button
   },
   data() {
     return {
       userForm: {
-        userId: '',
-        password: ''
+        userId: "",
+        password: ""
       },
       rules: {
         userId: [
           {
             required: true,
-            message: 'ユーザIDを入力してください',
-            trigger: 'blur'
+            message: "ユーザIDを入力してください",
+            trigger: "blur"
           }
         ],
         password: [
           {
             required: true,
-            message: 'パスワードを入力してください',
-            trigger: 'blur'
+            message: "パスワードを入力してください",
+            trigger: "blur"
           }
         ]
       }
-    }
+    };
   },
   methods: {
     async login() {
       try {
-        await loginApi.login(this.userForm.userId, this.userForm.password)
-        console.log('login success')
+        await loginApi.login(this.userForm.userId, this.userForm.password);
+        console.log("login success");
+        document.location = "/home";
       } catch {
-        this.$message.error('ログインに失敗しました。 ')
+        this.$message.error("ログインに失敗しました。 ");
       }
     }
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   color: #000000;
   margin: 200px 200px 200px 200px;
 }
@@ -124,7 +110,7 @@ export default {
 .clearfix:before,
 .clearfix:after {
   display: table;
-  content: '';
+  content: "";
 }
 .clearfix:after {
   clear: both;
