@@ -1,0 +1,124 @@
+###
+GET http://localhost:2941/public/csrf
+Accept: application/json
+
+###
+POST http://localhost:2941/public/login HTTP/1.1
+content-type: application/json
+X-CSRF-TOKEN: 2477e758-24ed-4f5e-9778-df7640cc58ff
+
+{
+    "userId": "ao.kcghiro@gmail.com",
+    "password": "123",
+    "_csrf": "2477e758-24ed-4f5e-9778-df7640cc58ff"
+}
+
+###
+GET http://localhost:2941/public/users
+Accept: application/json
+
+###
+POST http://localhost:2941/public/login HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+userId=aaa&password=myPass&_csrf=2477e758-24ed-4f5e-9778-df7640cc58ff
+
+###
+POST http://localhost:8080/api/logout HTTP/1.1
+content-type: application/json
+
+{
+    "email": "aokcghiro@gmail.com",
+    "password": "123"
+}
+
+###
+POST http://localhost:8080/api/getUser HTTP/1.1
+
+### 全タスク取得
+POST http://localhost:8080/api/getTask HTTP/1.1
+
+### タスクリスト取得
+POST http://localhost:8080/api/getTaskListAll HTTP/1.1
+
+### タスクリスト更新
+PUT http://localhost:8080/api/taskLists HTTP/1.1
+content-type: application/json
+
+[{
+    "taskListId": "1",
+    "name": "テスト１"
+},
+{
+    "taskListId": "2",
+    "name": "テスト２"
+}
+]
+
+### ユーザーライク検索
+POST http://localhost:8080/api/getUserLike HTTP/1.1
+content-type: application/json
+
+{
+    "taskListId": "1",
+    "name": "青"
+}
+
+### タスク検索
+POST http://localhost:8080/api/searchTasks HTTP/1.1
+content-type: application/json
+
+{
+    "sname": "",
+    "dateFrom": "1900-01-01",
+    "dateTo": "9999-12-31",
+    "keyword": "",
+    "taskListIds": [1,2,3]
+}
+
+### タスク更新
+PUT  http://localhost:8080/api/tasks HTTP/1.1
+content-type: application/json
+
+{
+    "name": "追加したタスク",
+    "description": "説明1",
+    "userId": "1"
+}
+
+### ボード初期表示
+POST http://localhost:8080/api/bord HTTP/1.1
+
+###
+POST http://pg-memo.net/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "ao.kcghiro@gmail.com",
+    "password": "123"
+}
+
+###
+GET http://127.0.0.1:4441/api/14/project/test/executions?authtoken=NnWCYOhNfD9u2HNWYwLCR4TPSJ7aArW8
+Accept: application/json
+
+###
+GET http://127.0.0.1:4441/api/31/job/cd9b5347-b90b-4be1-b5c6-df3160fe54ce/forecast
+Accept: application/json
+x-rundeck-auth-token: O8mVC2LpXWksKunoHQ1VzTUVeQr7OW78
+
+### job実行。対象が実行中の場合は、エラーとなる。
+POST http://127.0.0.1:4441/api/1/job/EXAMPLE-TEST-JOB01/run
+Content-Type: application/json
+x-rundeck-auth-token: NnWCYOhNfD9u2HNWYwLCR4TPSJ7aArW8
+
+{
+  {
+    "argstring": "-flg false"
+  }
+}
+
+###
+GET http://127.0.0.1:4441/api/14/project/test/executions/running
+Accept: application/json
+x-rundeck-auth-token: NnWCYOhNfD9u2HNWYwLCR4TPSJ7aArW8

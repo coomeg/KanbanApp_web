@@ -16,21 +16,21 @@
 </template>
 
 <script>
-import Button from "@/components/atoms/Button.vue"
-import KbnIcon from "@/components/atoms/KbnIcon.vue"
-import KbnTaskDetailForm from "@/components/molecules/KbnTaskDetailForm.vue"
+import Button from '@/components/atoms/Button.vue'
+import KbnIcon from '@/components/atoms/KbnIcon.vue'
+import KbnTaskDetailForm from '@/components/molecules/KbnTaskDetailForm.vue'
 
 export default {
-  name: "KbnTaskDetailModal",
+  name: 'KbnTaskDetailModal',
 
   components: {
     Button,
     KbnIcon,
-    KbnTaskDetailForm
+    KbnTaskDetailForm,
   },
 
   props: {
-    taskId: Number
+    taskId: Number,
   },
 
   computed: {
@@ -39,12 +39,12 @@ export default {
       return !Number.isNaN(this.taskId)
         ? { ...this.$store.getters.getTaskById(this.taskId) }
         : {}
-    }
+    },
   },
 
   methods: {
     back() {
-      this.$router.push({ path: "/" })
+      this.$router.push({ path: '/' })
     },
 
     handleClose() {
@@ -53,13 +53,13 @@ export default {
 
     handleUpdate(task) {
       return this.$store
-        .dispatch("updateTask", task)
+        .dispatch('updateTask', task)
         .then(() => {
           this.back()
         })
-        .catch(err => Promise.reject(err))
-    }
-  }
+        .catch((err) => Promise.reject(err))
+    },
+  },
 }
 </script>
 
